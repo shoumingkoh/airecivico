@@ -1,0 +1,50 @@
+[project]
+name = "airecivico"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Shou Ming Koh", email = "shouming79@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+airecivico = "airecivico:main"
+
+[build-system]
+requires = ["uv_build>=0.13.5,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.4.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.17.3",
+    "ty>=0.0.95",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+# A pragmatic, strict-but-sane rule set.
+select = ["E", "F", "I", "UP", "B", "SIM", "ASYNC", "S"]
+# E/F = pycodestyle+pyflakes, I = import sort, UP = pyupgrade,
+# B = bugbear, SIM = simplify, ASYNC = async pitfalls, S = security (bandit).
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]   # allow `assert` in tests only — it is stripped under `python -O`
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ty.environment]
+python-version = "3.13"
+
+[tool.pytest.ini_options]
+addopts = "-ra -q --cov=airecivico --cov-report=term-missing"
+asyncio_mode = "auto"
+testpaths = ["tests"]
